@@ -36,15 +36,18 @@ public class ReadFile {
             // Find all subjects and associated scores
             for (String subject: separate.subList(3, separate.size()-1)){
                 List<String> subject_score = new ArrayList<String>(Arrays.asList(subject.split(":", -1)));
-                subjects.add(subject_score.get(0));
+                if (!subjects.contains(subject_score.get(0))) {
+                    subjects.add(subject_score.get(0));
+                }
                 Integer score = Integer.parseInt(subject_score.get(1));
                 scores.add(score);
+            }
             // Check if student passed or not
             if (separate.get(separate.size()-1).equals("PASS")) 
                 pass.add(true);
             else
                 pass.add(false);
-            }
+            
         }
         // Output sorted data
         System.out.println(names);
