@@ -26,10 +26,16 @@ public class GoldMedal1 {
         List<String> genders = new ArrayList<String>(Arrays.asList());
         List<String> ids = new ArrayList<String>(Arrays.asList());
         List<String> subjects = new ArrayList<String>(Arrays.asList());
-        List<Integer> scores1 = new ArrayList<Integer>(Arrays.asList());
-        List<Integer> scores2 = new ArrayList<Integer>(Arrays.asList());
+        List<Integer> eng_scores = new ArrayList<Integer>(Arrays.asList());
+        List<Integer> math_scores = new ArrayList<Integer>(Arrays.asList());
+        List<Integer> phy_scores = new ArrayList<Integer>(Arrays.asList());
+        List<Integer> chem_scores = new ArrayList<Integer>(Arrays.asList());
+        List<Integer> bio_scores = new ArrayList<Integer>(Arrays.asList());
+        List<List<Integer>> score_list = new ArrayList<List<Integer>>(Arrays.asList(eng_scores, math_scores, phy_scores, chem_scores, bio_scores));
         // List<Boolean> pass = new ArrayList<Boolean>(Arrays.asList());
         List<String> toppers1 = new ArrayList<String>();
+
+        int index = 3;
 
         List<String> temp1 = new ArrayList<String>();
         int max1 = 0;
@@ -43,16 +49,21 @@ public class GoldMedal1 {
             genders.add(info1.get(1));
             ids.add(info1.get(2));
 
-            temp1 = Arrays.asList(info1.get(3).split(":"));
-            subjects.add(temp1.get(0));
-            scores1.add(Integer.parseInt(temp1.get(1)));
+            // temp1 = Arrays.asList(info1.get(3).split(":"));
+            // subjects.add(temp1.get(0));
+            // eng_scores.add(Integer.parseInt(temp1.get(1)));
 
-            temp1 = Arrays.asList(info1.get(4).split(":"));
-            subjects.add(temp1.get(0));
-            scores2.add(Integer.parseInt(temp1.get(1)));
+            // temp1 = Arrays.asList(info1.get(4).split(":"));
+            // subjects.add(temp1.get(0));
+            // math_scores.add(Integer.parseInt(temp1.get(1)));
 
-
-
+            for (List<Integer> scores: score_list) {
+                temp1 = Arrays.asList(info1.get(index).split(":"));
+                subjects.add(temp1.get(0));
+                scores.add(Integer.parseInt(temp1.get(1)));
+                index += 1;
+            }
+            index = 3;    
             // Find all subjects and associated scores
             // for (String subject: info1.subList(3, info1.size()-1)){
             //     List<String> subject_score = new ArrayList<String>(Arrays.asList(subject.split(":", -1)));
@@ -69,12 +80,18 @@ public class GoldMedal1 {
             //     pass.add(false);
             
         }
-        max1 = Collections.max(scores1);
-        // System.out.println(max1);
-        for (int i = 0; i<count1; i++){
-            if (scores1.get(i).equals(max1)){
-                toppers1.add(names.get(i));
+        index = 0;
+        for (List<Integer> scores: score_list){
+            max1 = Collections.max(scores);
+            // System.out.println(max1);
+            for (int i = 0; i<count1; i++){
+                if (scores.get(i).equals(max1)){
+                    toppers1.add(names.get(i));
+                }
             }
+            System.out.println(toppers1 + " are the toppers in " + subjects.get(index) + " with marks of " + max1);
+            index += 1;
+            toppers1.clear();
         }
         
         
@@ -86,16 +103,16 @@ public class GoldMedal1 {
         // // System.out.println(genders);
         // // System.out.println(ids);
         // System.out.println(subjects);
-        // System.out.println(scores1);
-        // System.out.println(scores2);
+        // System.out.println(eng_scores);
+        // System.out.println(math_scores);
         // System.out.println(pass);
-        System.out.println(toppers1 + " are the toppers in " + subjects.get(0) + " with marks of " + max1);
-
-
-
-
-        }
-
         
-        
+
+
+
+
     }
+
+        
+        
+}
